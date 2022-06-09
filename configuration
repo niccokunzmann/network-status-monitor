@@ -13,12 +13,15 @@ logs="`dirname \"$0\"`/logs"
 ##
 ## The format to use for the date command to format the time
 ## stamps in the logs
-DATE_FORMAT="%F %T"
+DATE_FORMAT="%a;%F;%T"
 
 ##
 ## Ending of the log files
 ##
 LOG_ENDING=".log.csv"
+
+## The separator between values
+SEPARATOR=";"
 
 ##############################
 ##          Ping            ##

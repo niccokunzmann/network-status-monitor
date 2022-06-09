@@ -17,7 +17,7 @@ function logPingSuccess() {
 
 function logPingFailure() {
   local address="$1"
-  logResult ping "$address" "$PING_SUCCESS"
+  logResult ping "$address" "$PING_FAILURE"
 }
 
 function logResult() {
@@ -30,7 +30,9 @@ function logResult() {
       echo "$1"
       shift
     done
-  ) | tr "\n" ";" >> "$logFile"
+    # replace newline with ; and remove last newline
+  ) | tr "\n" "$SEPARATOR" | head -c -1 >> "$logFile"
+  echo >> "$logFile"
 }
 
 function logFileNamed() {

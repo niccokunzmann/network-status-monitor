@@ -6,7 +6,7 @@ for address in $PING_ADDRESSES; do
   if ping $PING_OPTIONS $address; then
     logPingSuccess $address
   else
-    logPingFail $address
+    logPingFailure $address
   fi
 done
 
