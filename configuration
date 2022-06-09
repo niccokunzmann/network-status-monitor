@@ -9,8 +9,13 @@
 
 ##
 ## Configuration for running jobs in the background.
-##
+## This is a list of jobs to run
 RUN_ALL="ping-address wget-website"
+
+##
+## Interval to run the commands in seconds
+##
+INTERVAL=60
 
 ##############################
 ##        Logging           ##
