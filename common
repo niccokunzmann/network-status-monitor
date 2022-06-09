@@ -34,15 +34,14 @@ function logResult() {
   local name="$1"
   shift
   local logFile="`logFileNamed \"$name\"`"
+  ## try threadsave access to logfile
   (
-    now
-    while [ -n  "$1$2$3$4$5" ]; do
-      echo "$1"
-      shift
+    local result="`now`"
+    for entry in "$@"; do
+      local result="$result$SEPARATOR$entry"
     done
-    # replace newline with ; and remove last newline
-  ) | tr "\n" "$SEPARATOR" | head -c -1 >> "$logFile"
-  echo >> "$logFile"
+    echo "$result"
+  ) >> "$logFile"
 }
 
 function logFileNamed() {
@@ -53,4 +52,41 @@ function logFileNamed() {
 
 function now() {
   date +"$DATE_FORMAT"
+}
+
+function logTracerouteToHost() {
+#  local host="$1"
+#  local hop="$2"
+#  echo "traceroute $TRACEROUTE_OPTIONS -f $2 -m $2 $1 | tail -n 1"
+  local output="`traceroute $TRACEROUTE_OPTIONS -f $2 -m $2 $1 | tail -n 1 | tr '*' '_'`"
+  logTracerouteResult "$host" $output
+}
+
+# log lines like these:
+# 1  192.168.43.1  9.930 ms  8.081 ms  5.481 ms
+# 2  * * *
+function logTracerouteResult() {
+  local result="$1 $2"
+  shift # host
+  shift # hop
+  if [ "$1" == '_' ]; then
+    local result="$result $TRACEROUTE_TIMEOUT_IP $TRACEROUTE_TIMEOUT_MS"
+  else
+    local ip="$1"
+    shift
+    # parse the milliseconds
+    local msSum="0"
+    local count="0"
+    for ms in `echo "$@" | grep -oE '[.]?[0-9]+' | grep -vF '.'`; do
+      local msSum="$(( $msSum + $ms ))"
+      local count="$(( $count + 1 ))"
+    done
+    if [ "$count" == 0 ]; then
+      local average="$TRACEROUTE_TIMEOUT_MS"
+    else
+      local average="$(( $msSum / $count ))"
+    fi
+    local result="$result $ip $average"
+  fi
+  logResult traceroute $result
 }

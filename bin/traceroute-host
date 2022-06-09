@@ -1,0 +1,12 @@
+#!/bin/bash
+
+source "`dirname \"$0\"`/../common"
+
+for host in $TRACEROUTE_HOSTS; do
+  for hop in `seq 1 "$TRACEROUTE_HOPS"`; do
+    logTracerouteToHost "$host" "$hop" &
+  done
+done
+
+wait
+

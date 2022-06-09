@@ -75,3 +75,23 @@ WGET_OPTIONS="-q -O /dev/null"
 ## Values for success and failure for the statistics
 WGET_SUCCESS=1
 WGET_FAILURE=0
+
+##############################
+##       traceroute         ##
+##############################
+##
+## get routing statistics
+
+## how far to hop
+TRACEROUTE_HOPS=10
+
+## targets divided by space
+TRACEROUTE_HOSTS="8.8.8.8"
+
+## additional options
+TRACEROUTE_OPTIONS="-n -q 3"
+
+## default value for timeout
+TRACEROUTE_TIMEOUT_IP='?'
+## milliseconds
+TRACEROUTE_TIMEOUT_MS='0'
