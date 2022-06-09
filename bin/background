@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# Run a bakground job
+#
+
+set -e
+
+while true; do
+  source "`dirname \"$0\"`/../common"
+  logFile="`logFileNamed background`"
+  (
+    set +e
+    start="`date +%s`"
+    "$HERE/all" || true
+    stop="`date +%s`"
+    duration="$(( $stop - $start ))"
+    if [ "$duration" > "0" ] && [ "$duration" < "$INTERVAL" ]; then
+      sleep "$(( $INTERVAL - $duration ))"
+    fi
+  ) 1>> "$logFile" 2>>"$logFile"
+done
