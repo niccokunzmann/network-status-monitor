@@ -3,5 +3,12 @@
 # This runs all the tasks.
 #
 
+source "`dirname \"$0\"`/../common"
+
+for command in $RUN_ALL; do
+  "$HERE/$command" &
+done
+
+wait
 
 

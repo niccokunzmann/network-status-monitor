@@ -3,16 +3,24 @@
 ## This is a configuration file for the jobs.
 ##
 
+##############################
+##       Background         ##
+##############################
 
+##
+## Configuration for running jobs in the background.
+##
+RUN_ALL="ping-address wget-website"
+
+##############################
+##        Logging           ##
+##############################
 
 ## This is the directory where the logs are written to
 ## The default is to use a relative directory
 logs="`dirname \"$0\"`/logs"
 #logs="/var/logs/network-monitor"
 
-##############################
-##        Logging           ##
-##############################
 ##
 ## Time format
 ##
