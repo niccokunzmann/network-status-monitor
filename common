@@ -9,6 +9,10 @@ HERE="`dirname \"$0\"`"
 
 # assuming we are in the run folder
 source "$HERE/../configuration"
+localConfig="$HERE/../local-configuration"
+if [ -f "$localConfig" ]; then
+  source "$localConfig"
+fi
 
 function logMacStatus() {
   local address="$1"
