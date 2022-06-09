@@ -1,0 +1,13 @@
+#!/bin/bash
+
+source "`dirname \"$0\"`/../common"
+
+for address in $PING_ADDRESSES; do
+  if ping $PING_OPTIONS $address; then
+    logPingSuccess $address
+  else
+    logPingFail $address
+  fi
+done
+
+

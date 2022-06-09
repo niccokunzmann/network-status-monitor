@@ -1,0 +1,44 @@
+#!/bin/bash
+#
+# common functions
+#
+
+set -e
+
+HERE="`dirname \"$0\"`"
+
+# assuming we are in the run folder
+source "$HERE/../configuration"
+
+function logPingSuccess() {
+  local address="$1"
+  logResult ping "$address" "$PING_SUCCESS"
+}
+
+function logPingFailure() {
+  local address="$1"
+  logResult ping "$address" "$PING_SUCCESS"
+}
+
+function logResult() {
+  local name="$1"
+  shift
+  local logFile="`logFileNamed \"$name\"`"
+  (
+    now
+    while [ -n  "$1$2$3$4$5" ]; do
+      echo "$1"
+      shift
+    done
+  ) | tr "\n" ";" >> "$logFile"
+}
+
+function logFileNamed() {
+  local name="$1"
+  mkdir -p "$logs"
+  echo "$logs/$name$LOG_ENDING"
+}
+
+function now() {
+  date +"$DATE_FORMAT"
+}

@@ -1,0 +1,39 @@
+#!/bin/bash
+##
+## This is a configuration file for the jobs.
+##
+
+## This is the directory where the logs are written to
+## The default is to use a relative directory
+logs="`dirname \"$0\"`/logs"
+#logs="/var/logs/network-monitor"
+
+##
+## Time format
+##
+## The format to use for the date command to format the time
+## stamps in the logs
+DATE_FORMAT="%F %T"
+
+##
+## Ending of the log files
+##
+LOG_ENDING=".log.csv"
+
+##############################
+##          Ping            ##
+##############################
+##
+## Ping an address and store its result
+##
+
+## addresses separated by spaces
+PING_ADDRESSES="8.8.8.8"
+## Options for the ping command
+## Default: ping once
+PING_OPTIONS="-c 1"
+
+## Values for success and failure for the statistics
+PING_SUCCESS=1
+PING_FAILURE=0
+
