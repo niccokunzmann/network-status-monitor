@@ -9,7 +9,7 @@ start="`date +%s%N`"
 bytes="`
 curl --max-filesize "$DOWNLOAD_MAX_BYTES" \
      --max-time "$DOWNLOAD_MAX_SECONDS" \
-     "$DOWNLOAD_URL" | wc --bytes
+     --silent "$DOWNLOAD_URL" | wc --bytes
 `"
 stop="`date +%s%N`"
 
