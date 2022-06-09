@@ -1,0 +1,12 @@
+#!/bin/bash
+
+source "`dirname \"$0\"`/../common"
+
+for website in $WGET_WEBSITES; do
+  if wget $WGET_OPTIONS $website; then
+    logWgetSuccess $website
+  else
+    logWgetFailure $website
+  fi
+done
+

@@ -3,11 +3,16 @@
 ## This is a configuration file for the jobs.
 ##
 
+
+
 ## This is the directory where the logs are written to
 ## The default is to use a relative directory
 logs="`dirname \"$0\"`/logs"
 #logs="/var/logs/network-monitor"
 
+##############################
+##        Logging           ##
+##############################
 ##
 ## Time format
 ##
@@ -40,3 +45,20 @@ PING_OPTIONS="-c 1"
 PING_SUCCESS=1
 PING_FAILURE=0
 
+##############################
+##          wget            ##
+##############################
+##
+## wget is used to ping a website
+##
+
+## Websites to ping separated by a space
+WGET_WEBSITES="http://detectportal.firefox.com"
+
+## Options for the wget command
+## Default: silent and throw away output
+WGET_OPTIONS="-q -O /dev/null"
+
+## Values for success and failure for the statistics
+WGET_SUCCESS=1
+WGET_FAILURE=0

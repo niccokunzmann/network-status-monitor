@@ -20,6 +20,16 @@ function logPingFailure() {
   logResult ping "$address" "$PING_FAILURE"
 }
 
+function logWgetSuccess() {
+  local address="$1"
+  logResult wget "$address" "$WGET_SUCCESS"
+}
+
+function logWgetFailure() {
+  local address="$1"
+  logResult wget "$address" "$WGET_FAILURE"
+}
+
 function logResult() {
   local name="$1"
   shift
