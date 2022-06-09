@@ -10,6 +10,17 @@ HERE="`dirname \"$0\"`"
 # assuming we are in the run folder
 source "$HERE/../configuration"
 
+function logMacStatus() {
+  local address="$1"
+  local status="$2"
+  logResult device "$address" "$status"
+}
+
+function logMacCount() {
+  local count="$1"
+  logResult network "$(( $count + 1 ))"
+}
+
 function logPingSuccess() {
   local address="$1"
   logResult ping "$address" "$PING_SUCCESS"
@@ -90,3 +101,8 @@ function logTracerouteResult() {
   fi
   logResult traceroute $result
 }
+
+function formatMAC() {
+  tr 'A-Z' 'a-z'
+}
+

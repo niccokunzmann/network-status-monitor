@@ -10,7 +10,7 @@
 ##
 ## Configuration for running jobs in the background.
 ## This is a list of jobs to run
-RUN_ALL="ping-address wget-website"
+RUN_ALL="ping-ip wget-website traceroute-host local-network"
 
 ##
 ## Interval to run the commands in seconds
@@ -95,3 +95,19 @@ TRACEROUTE_OPTIONS="-n -q 3"
 TRACEROUTE_TIMEOUT_IP='?'
 ## milliseconds
 TRACEROUTE_TIMEOUT_MS='0'
+
+##############################
+##      local network       ##
+##############################
+##
+## collect statistics about the local network
+##
+
+## ethernet addresses to check the status of
+MAC_ADDRESSES="b4:ef:39:b8:ff:34"
+
+## network to have a look at 1-254
+MAC_NETWORK="192.168.0"
+
+## options for local ping to gather mac adresses
+MAC_PING_OPTIONS="-c 1 -q -W 1"

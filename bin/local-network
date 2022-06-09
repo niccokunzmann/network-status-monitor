@@ -1,0 +1,38 @@
+#!/bin/bash
+
+source "`dirname \"$0\"`/../common"
+
+
+# ping all local network addresses
+for ip in `seq 1 254`; do
+  (
+    ping $MAC_PING_OPTIONS "$MAC_NETWORK.$ip" > /dev/null
+  ) &
+done
+
+wait
+
+ipa="`ip a || true`"
+if [ -z "$ipa" ]; then
+  # debug
+  ipa="192.168.0.1 dev wlan0 lladdr b4:ef:39:b8:ff:32 REACHABLE
+192.168.0.2 dev wlan0 lladdr b4:ef:39:b8:ff:34 STALE
+"
+fi
+
+echo "$ipa" | while read ; do
+  if [ -z "$REPLY" ]; then
+    continue
+  fi
+  mac="`echo \"$REPLY\" | grep -oEe '[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F]' | formatMAC`"
+  status="`echo \"$REPLY\" | grep -oEe '[a-zA-Z]+$'`"
+#  echo "mac: '$mac' status: '$status'"
+  for address in $MAC_ADDRESSES; do
+    address="`echo $address | formatMAC`"
+    if [ "$address" == "$mac" ]; then
+      logMacStatus "$address" "$status"
+    fi
+  done
+done
+
+logMacCount "`echo \"$ipa\" | grep -iFe 'REACHABLE' | wc -l`"
