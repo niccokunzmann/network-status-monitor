@@ -52,7 +52,7 @@ SEPARATOR=";"
 PING_ADDRESSES="8.8.8.8"
 ## Options for the ping command
 ## Default: ping once
-PING_OPTIONS="-c 1"
+PING_OPTIONS="-c 1 -q"
 
 ## Values for success and failure for the statistics
 PING_SUCCESS=1
