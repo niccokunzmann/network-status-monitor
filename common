@@ -21,6 +21,11 @@ function logMacCount() {
   logResult network "$(( $count + 1 ))"
 }
 
+function logSpeed() {
+  local bps="$1"
+  logResult download "$bps"
+}
+
 function logPingSuccess() {
   local address="$1"
   logResult ping "$address" "$PING_SUCCESS"

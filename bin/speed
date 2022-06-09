@@ -1,0 +1,20 @@
+#!/bin/bash
+
+source "`dirname \"$0\"`/../common"
+
+# --max-filesize <bytes> Maximum file size to download
+# --max-time <seconds> Maximum time allowed for the transfer
+
+start="`date +%s%N`"
+bytes="`
+curl --max-filesize "$SPEED_MAX_BYTES" \
+     --max-time "$SPEED_MAX_SECONDS" \
+     "$SPEED_URL" | wc --bytes
+`"
+stop="`date +%s%N`"
+
+if [ "$stop" -gt "$start" ]; then
+  duration="$(( $stop - $start ))" # ns
+  bps="$(( $bytes * 1000000 / $duration ))"
+  logSpeed "$bps"
+fi

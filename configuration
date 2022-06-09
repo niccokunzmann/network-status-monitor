@@ -111,3 +111,19 @@ MAC_NETWORK="192.168.0"
 
 ## options for local ping to gather mac adresses
 MAC_PING_OPTIONS="-c 1 -q -W 1"
+
+##############################
+##      download speed      ##
+##############################
+##
+## retrieve a file and get the download speed
+##
+
+## URL of the file to download
+SPEED_URL="http://"
+
+## Maximum bytes to download
+SPEED_MAX_BYTES="100000"
+
+## Maximum time to spend
+SPEED_MAX_SECONDS=1
