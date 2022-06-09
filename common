@@ -77,7 +77,13 @@ function logTracerouteToHost() {
 # 1  192.168.43.1  9.930 ms  8.081 ms  5.481 ms
 # 2  * * *
 function logTracerouteResult() {
-  local result="$1 $2"
+  local host="$1"
+  local hop="$2"
+  if ! echo "$hop" | grep -qEe '^[0-9]+$'; then
+    # command failed
+    return 0
+  fi
+  local result="$host $hop"
   shift # host
   shift # hop
   if [ "$1" == '_' ]; then
