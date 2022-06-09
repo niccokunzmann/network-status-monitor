@@ -16,6 +16,6 @@ stop="`date +%s%N`"
 if [ "$stop" -gt "$start" ]; then
   duration="$(( $stop - $start ))" # ns
   bps="$(( $bytes * 1000000 / $duration ))"
-  echo "duration '$duration' bytes '$bytes' bps '$bps'"
+#  echo "duration '$duration' bytes '$bytes' bps '$bps'"
   logSpeed "$bps"
 fi
