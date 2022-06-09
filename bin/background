@@ -5,17 +5,26 @@
 
 set -e
 
+new=true
+
 while true; do
   source "`dirname \"$0\"`/../common"
   logFile="`logFileNamed background`"
   (
     set +e
+    if [ "$new" == "true" ]; then
+      echo "-------------------------------------"
+    fi
+    echo -n " ---- "
+    now
     start="`date +%s`"
     "$HERE/all" || true
     stop="`date +%s`"
     duration="$(( $stop - $start ))"
-    if [ "$duration" > "0" ] && [ "$duration" < "$INTERVAL" ]; then
+    echo "duration=$duration"
+    if [ "$duration" -ge "0" ] && [ "$duration" -le "$INTERVAL" ] ; then
       sleep "$(( $INTERVAL - $duration ))"
     fi
   ) 1>> "$logFile" 2>>"$logFile"
+  new=false
 done
