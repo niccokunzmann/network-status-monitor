@@ -106,7 +106,7 @@ TRACEROUTE_TIMEOUT_MS='0'
 ##
 
 ## ethernet addresses to check the status of
-MAC_ADDRESSES="b4:ef:39:b8:ff:34"
+MAC_ADDRESSES="98:de:d0:60:92:cf"
 
 ## network to have a look at 1-254
 MAC_NETWORK="192.168.0"

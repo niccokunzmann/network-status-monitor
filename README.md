@@ -18,5 +18,17 @@ Installation
 
 Clone this repository.
 
+Then, make it run at startup, see
+[here](https://www.dexterindustries.com/howto/auto-run-python-programs-on-the-raspberry-pi/)
+for example.
+I use crontab:
 
+```
+crontab -e
+```
 
+Then, I added this line:
+
+```
+@reboot /home/pi/network-status-monitor/bin/background
+```
