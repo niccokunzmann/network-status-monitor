@@ -5,8 +5,8 @@ source "`dirname \"$0\"`/../common"
 #                    ESSID:"TP-Link_B1C6"
 #                    ESSID:"TP-LINK_EB80F8"
 #                    ESSID:"TP-Link_02B4"
-iwlist wlan0 scanning | grep ESSID | grep -oEe '"[^"]*"' | while read; do
+/sbin/iwlist wlan0 scanning | grep ESSID | grep -oEe '"[^"]*"' | while read; do
   wifi="` echo \"$REPLY\" | head -c -2 | tail -c +2 `"
-  echo "wifi='$wifi'"
+#  echo "wifi='$wifi'"
   logWifiPresent "$wifi"
 done
