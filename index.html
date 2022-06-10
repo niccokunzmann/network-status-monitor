@@ -4,10 +4,42 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link href="css/index.css" rel="stylesheet"/>
-    <script async="" src="js/chart.js"></script>
-    <script async="" src="js/index.js"></script>
+    <script language="javascript">
+// see https://stackoverflow.com/questions/6604192/showing-console-errors-and-alerts-in-a-div-inside-the-page
+if (typeof console  != "undefined") 
+    if (typeof console.log != 'undefined')
+        console.olog = console.log;
+    else
+        console.olog = function() {};
+
+console.log = function(message) {
+    console.olog(message);
+    document.getElementById("consoleOutput").append(message + '\n');
+};
+console.error = console.debug = console.info =  console.log
+window.addEventListener("error", function(e) {
+  console.error("Error:" + e.message)
+});
+    </script>
+    <script async="" src="js/Chart.js"></script>
+<!--    <script async="" src="js/chart.min.js"></script>-->
     <title>Network Statistics</title>
   </head>
   <body>
+    <h1>Network Statistics</h1>
+    <p>
+      This is a nice view of the statistics.
+      You can get the <a href="/logs/">raw data</a> or
+      <a href="https://github.com/niccokunzmann/network-status-monitor">view the source code</a>.
+    </p>
+    <canvas id="weekOverview" style="width:100%;max-width:700px" ></canvas>
+    <hr/>
+    <pre id="consoleOutput">
+    </pre>
+    <script type="text/javascript">
+      console.log("---------- loaded ----------");
+    </script>
+    <script async="" src="js/index.js"></script>
+    <script async="" src="cgi-bin/week-overview.py"></script>
   </body>
 </html>
