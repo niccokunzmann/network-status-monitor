@@ -1,0 +1,10 @@
+#!/bin/bash
+
+source "`dirname \"$0\"`/../common"
+
+#                    ESSID:"TP-Link_B1C6"
+#                    ESSID:"TP-LINK_EB80F8"
+#                    ESSID:"TP-Link_02B4"
+iwlist wlan0 scanning | grep ESSID | grep -oEe '"[^"]*"' | head -c -1 | tail -c +2 | while read; do
+  logWifiPresent "$REPLY"
+done

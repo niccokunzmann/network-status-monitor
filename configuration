@@ -12,7 +12,7 @@
 ##
 ## Configuration for running jobs in the background.
 ## This is a list of jobs to run
-RUN_ALL="ping-ip wget-website traceroute-host local-network speed"
+RUN_ALL="ping-ip wget-website traceroute-host local-network speed wifi"
 
 ##
 ## Interval to run the commands in seconds

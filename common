@@ -30,6 +30,11 @@ function logSpeed() {
   logResult download "$bps"
 }
 
+function logWifiPresent() {
+  local wifi="$1"
+  logResult wifi "$wifi"
+}
+
 function logPingSuccess() {
   local address="$1"
   logResult ping "$address" "$PING_SUCCESS"
