@@ -122,10 +122,7 @@ MAC_PING_OPTIONS="-c 1 -q -W 1"
 ##
 
 ## URL of the file to download
-DOWNLOAD_URL="https://raw.githubusercontent.com/niccokunzmann/network-status-monitor/master/1mb"
-
-## Maximum bytes to download
-DOWNLOAD_MAX_BYTES="100000"
+DOWNLOAD_URL="https://raw.githubusercontent.com/niccokunzmann/network-status-monitor/master/200kb"
 
 ## Maximum time to spend
-DOWNLOAD_MAX_SECONDS=1
+DOWNLOAD_MAX_SECONDS=10

@@ -7,15 +7,16 @@ source "`dirname \"$0\"`/../common"
 
 start="`date +%s%N`"
 bytes="`
-curl --max-filesize "$DOWNLOAD_MAX_BYTES" \
-     --max-time "$DOWNLOAD_MAX_SECONDS" \
+curl --max-time "$DOWNLOAD_MAX_SECONDS" \
      --silent "$DOWNLOAD_URL" | wc --bytes
 `"
+#echo "$bytes"
+#exit 1
 stop="`date +%s%N`"
 
 if [ "$stop" -gt "$start" ]; then
   duration="$(( $stop - $start ))" # ns
   bps="$(( $bytes * 1000000 / $duration ))"
-#  echo "duration '$duration' bytes '$bytes' bps '$bps'"
+  echo "duration '$duration' bytes '$bytes' bps '$bps'"
   logSpeed "$bps"
 fi
