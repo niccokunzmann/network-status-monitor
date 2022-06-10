@@ -1,4 +1,6 @@
 
+var names = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
 var colors = {
   "Mon" : "red",
   "Tue" : "green",
@@ -8,6 +10,31 @@ var colors = {
   "Sat" : "purple",
   "Sun" : "yellow",
 };
+
+function showDays(xValues, values) {
+  var datasets = [];
+  for (var i = 0; i < values.length; i++) {
+        datasets.push({
+        data: values[i],
+        borderColor: colors[names[i]],
+        fill: false
+      });
+  }
+  new Chart("wholeDay", {
+    type: "line",
+    data: {
+      labels: xValues,
+      datasets: datasets,
+    },
+    options: {
+      legend: {display: false},
+      title: {
+        display: true,
+        text: "Internet Availability by Time in %"
+      }
+    }
+  });
+}
 
 
 function showWeekOverview(yValues) {
