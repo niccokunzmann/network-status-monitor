@@ -3,7 +3,7 @@
 source "`dirname \"$0\"`/../common"
 
 for address in $PING_ADDRESSES; do
-  if ping $PING_OPTIONS $address; then
+  if ping $PING_OPTIONS $address > /dev/null; then
     logPingSuccess $address
   else
     logPingFailure $address
