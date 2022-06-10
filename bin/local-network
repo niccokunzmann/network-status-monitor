@@ -12,15 +12,15 @@ done
 
 wait
 
-ipa="`ip a || true`"
-if [ -z "$ipa" ]; then
+ipn="`ip n || true`"
+if [ -z "$ipn" ]; then
   # debug
-  ipa="192.168.0.1 dev wlan0 lladdr b4:ef:39:b8:ff:32 REACHABLE
+  ipn="192.168.0.1 dev wlan0 lladdr b4:ef:39:b8:ff:32 REACHABLE
 192.168.0.2 dev wlan0 lladdr b4:ef:39:b8:ff:34 STALE
 "
 fi
 
-echo "$ipa" | while read ; do
+echo "$ipn" | while read ; do
   if [ -z "$REPLY" ]; then
     continue
   fi
@@ -35,4 +35,4 @@ echo "$ipa" | while read ; do
   done
 done
 
-logMacCount "`echo \"$ipa\" | grep -iFe 'REACHABLE' | wc -l`"
+logMacCount "`echo \"$ipn\" | grep -iFe 'REACHABLE' | wc -l`"
