@@ -32,3 +32,15 @@ Then, I added this line:
 ```
 @reboot /home/pi/network-status-monitor/bin/background
 ```
+
+Server
+------
+
+You can use the Python3 CGI server to serve the statistics.
+
+Implementation
+--------------
+
+We use [chart.js](https://www.w3schools.com/ai/ai_chartjs.asp).
+
+
