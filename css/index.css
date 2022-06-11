@@ -4,7 +4,7 @@ html, body {
   padding: 0em;
 }
 
-h1, h2, h3, p {
+h1, h2, h3, p, #currentStatus {
   padding-left: 1em;
   padding-right: 1em;
 }
@@ -52,4 +52,17 @@ h1, h2, h3 {
 canvas {
   width: 100%;
   max-width: 700px;
+}
+
+#currentStatus {
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+}
+
+.noInternet {
+  background-color: red;
+}
+
+.okInternet {
+  background-color: lightgreen;
 }

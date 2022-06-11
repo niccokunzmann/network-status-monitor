@@ -3,6 +3,7 @@ import os
 import sys
 from collections import defaultdict
 import json
+import datetime
 
 print("Content-Type: text/javascript")
 print("")
@@ -24,8 +25,12 @@ time_success = defaultdict(lambda: [1] * len(SLOTS_PER_DAY))
 
 days = [""]
 DAY = 0
+DATE = 1
 TIME = 2
 SUCCESS = 4
+
+lastUpdate = (0,0)
+lastUpdateStatus = 2
 
 with open(PING) as ping:
     for line in ping:
@@ -33,6 +38,11 @@ with open(PING) as ping:
         day = data[DAY]
         success = data[SUCCESS]
         time = tuple(map(int, data[TIME].split(":")))
+        date = tuple(map(int, data[DATE].split("-")))
+        dt = date + time
+        if dt > lastUpdate:
+            lastUpdate = dt
+            lastUpdateStatus = int(success)
         for slot_i, slot in enumerate(SLOTS_PER_DAY):
             if slot > time:
                 break
@@ -58,13 +68,17 @@ window.addEventListener("load", function() {{
   );
   showDays(
 {slots},
-{uptimes});
+{uptimes}
+);
+  setCurrentStatus({lastUpdate}, {lastUpdateStatus});
 }});
 /*
 """.format(
-  week=json.dumps(week, indent=2),
-  slots=json.dumps([str(h) + (":30" if m == 45 else ":00") for h, m in SLOTS_PER_DAY], indent=2),
-  uptimes=json.dumps(uptimes, indent=2),
+  week = json.dumps(week, indent=2),
+  slots = json.dumps([str(h) + (":30" if m == 45 else ":00") for h, m in SLOTS_PER_DAY], indent=2),
+  uptimes = json.dumps(uptimes, indent=2),
+  lastUpdate = int((datetime.datetime.now() - datetime.datetime(*lastUpdate)).total_seconds()),
+  lastUpdateStatus = lastUpdateStatus
 ))
 
 print("SLOTS_PER_DAY: ", SLOTS_PER_DAY)

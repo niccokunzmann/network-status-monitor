@@ -89,3 +89,45 @@ function showWeekOverview(yValues) {
   })); */
 }
 
+var STATUS = [
+  {
+    message: "No Internet in the barn",
+    cls: "noInternet"
+  },
+  {
+    message: "Internet worked in the barn",
+    cls: "okInternet"
+  },
+  {
+    message: "No Data",
+    cls: "noData"
+  }
+]
+
+function secondsToString(seconds) {
+  var result = seconds % 60 + "sec";
+
+  var minutes = seconds / 60;
+  if (minutes >= 1) {
+    result = minutes % 60 + "min " + result;
+  }
+
+  var hours = minutes / 60;
+  if (hours >= 1) {
+    result = hours % 24 + "h " + result;
+  }
+
+  var days = hours / 24;
+  if (days >= 1) {
+    result = days + "d " + result;
+  }
+  return result;
+}
+
+function setCurrentStatus(seconds, statusId) {
+  var element = document.getElementById("currentStatus");
+  var status = STATUS[statusId];
+  element.classList.add(status.cls);
+  element.innerText = status.message + " " + secondsToString(seconds) + " ago.";
+  console.log(element.classList);
+}
