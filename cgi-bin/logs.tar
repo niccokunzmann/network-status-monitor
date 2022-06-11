@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "Content-Type: application/octet-stream"
+echo
+
+cd "`dirname \"$0\"`/../bin/logs"
+
+tar cf - *.log*
