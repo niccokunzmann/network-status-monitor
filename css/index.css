@@ -1,3 +1,54 @@
+
+html, body {
+  margin: 0em;
+  padding: 0em;
+}
+
+h1, h2, h3, p {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+h1, h2, h3 {
+  text-align: center;
+}
+
+.overview {
+  width: 100%;
+  text-align: center;
+}
+
+.overview .weekday {
+  text-align: center;
+  display: inline-block;
+  margin: 0.1em;
+  padding: 0.3em;
+  border-radius: 0.3em;
+}
+
+.overview a {
+  text-decoration: none;
+  color: black;
+}
+
+.weekday.Mon { background-color: red;    color: black; }
+.weekday.Tue { background-color: green;  color: white; }
+.weekday.Wed { background-color: blue;   color: white; }
+.weekday.Thu { background-color: orange; color: black; }
+.weekday.Fri { background-color: brown;  color: white; }
+.weekday.Sat { background-color: purple; color: white; }
+.weekday.Sun { background-color: yellow; color: black; }
+
+.inactiveMon .weekday.Mon { background-color: #aaaaaa; color: black; }
+.inactiveTue .weekday.Tue { background-color: #aaaaaa; color: black; }
+.inactiveWed .weekday.Wed { background-color: #aaaaaa; color: black; }
+.inactiveThu .weekday.Thu { background-color: #aaaaaa; color: black; }
+.inactiveFri .weekday.Fri { background-color: #aaaaaa; color: black; }
+.inactiveSat .weekday.Sat { background-color: #aaaaaa; color: black; }
+.inactiveSun .weekday.Sun { background-color: #aaaaaa; color: black; }
+
+
+
 canvas {
   width: 100%;
   max-width: 700px;

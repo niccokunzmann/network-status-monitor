@@ -28,14 +28,43 @@ window.addEventListener("error", function(e) {
   <body>
     <h1>Network Statistics</h1>
     <p>
-      This is a nice view of the statistics.
-      You can get the <a href="/logs/">raw data</a> or
-      <a href="https://github.com/niccokunzmann/network-status-monitor">view the source code</a>.
+      This a statistical overview over the Internet
+      availability in the Barn in Tipi Valley.
     </p>
-    <canvas id="weekOverview"></canvas>
-    <hr/>
+    <h2>Internet Availability per week day</h2>
+    <div class="overview">
+      <a class="weekday Mon" href="javascript:toggleWeekday('Mon');">
+        Monday<span id="percentMon"></span>
+      </a>
+      <a class="weekday Tue" href="javascript:toggleWeekday('Tue');">
+        Tuesday<span id="percentTue"></span>
+      </a>
+      <a class="weekday Wed" href="javascript:toggleWeekday('Wed');">
+        Wednesday<span id="percentWed"></span>
+      </a>
+      <a class="weekday Thu" href="javascript:toggleWeekday('Thu');">
+        Thursday<span id="percentThu"></span>
+      </a>
+      <a class="weekday Fri" href="javascript:toggleWeekday('Fri');">
+        Friday<span id="percentFri"></span>
+      </a>
+      <a class="weekday Sat" href="javascript:toggleWeekday('Sat');">
+        Saturday<span id="percentSat"></span>
+      </a>
+      <a class="weekday Sun" href="javascript:toggleWeekday('Sun');">
+        Sunday<span id="percentSun"></span>
+      </a>
+    </div>
     <canvas id="wholeDay"></canvas>
     <hr/>
+    <p>
+      You can download the <a href="/logs/">raw data</a>
+      to use with Excel or
+      <a href="https://github.com/niccokunzmann/network-status-monitor">view the source code</a>.
+    </p>
+
+
+
     <pre id="consoleOutput">
     </pre>
     <script type="text/javascript">
