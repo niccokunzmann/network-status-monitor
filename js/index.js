@@ -62,6 +62,37 @@ function showDays(xValues, values) {
 }
 
 
+function setDownloadSpeed(xValues, values) {
+  var datasets = [];
+  for (var i = 0; i < values.length; i++) {
+        datasets.push({
+        data: values[i].map(function(v){return v / 1000;}),
+        borderColor: colors[names[i]],
+        fill: false
+      });
+  }
+  charts.push(new Chart("downloadSpeed", {
+    type: "line",
+    data: {
+      labels: xValues,
+      datasets: datasets,
+    },
+    options: {
+      legend: {display: false},
+      title: {
+        display: true,
+        text: "Download Speed in kb/s"
+      }
+    }
+  }));
+}
+
+
+
+
+
+
+
 function showWeekOverview(yValues) {
 //  console.log("weekly" + JSON.stringify(yValues));
   var barColors = [colors.Mon, colors.Tue, colors.Wed, colors.Thu, colors.Fri, colors.Sat, colors.Sun];
@@ -107,17 +138,17 @@ var STATUS = [
 function secondsToString(seconds) {
   var result = seconds % 60 + "sec";
 
-  var minutes = seconds / 60;
+  var minutes = Math.floor(seconds / 60);
   if (minutes >= 1) {
     result = minutes % 60 + "min " + result;
   }
 
-  var hours = minutes / 60;
+  var hours = Math.floor(minutes / 60);
   if (hours >= 1) {
     result = hours % 24 + "h " + result;
   }
 
-  var days = hours / 24;
+  var days = Math.floor(hours / 24);
   if (days >= 1) {
     result = days + "d " + result;
   }
