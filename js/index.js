@@ -91,7 +91,7 @@ function showWeekOverview(yValues) {
 
 var STATUS = [
   {
-    message: "No Internet in the barn",
+    message: "No Internet in the barn since ",
     cls: "noInternet"
   },
   {
@@ -124,10 +124,10 @@ function secondsToString(seconds) {
   return result;
 }
 
-function setCurrentStatus(seconds, statusId) {
+function setCurrentStatus(lastSuccess, statusId, lastUpdate) {
   var element = document.getElementById("currentStatus");
   var status = STATUS[statusId];
   element.classList.add(status.cls);
-  element.innerText = status.message + " " + secondsToString(seconds) + " ago.";
+  element.innerText = status.message + " " + secondsToString(lastSuccess) + " ago." + (statusId == 0 ? " Last updated " + secondsToString(lastUpdate) + " ago." : "");
   console.log(element.classList);
 }

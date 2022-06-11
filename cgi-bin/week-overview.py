@@ -32,6 +32,8 @@ SUCCESS = 4
 lastUpdate = (0,0)
 lastUpdateStatus = 2
 
+lastSuccess = (0,0)
+
 with open(PING) as ping:
     for line in ping:
         data = line.split(";")
@@ -52,7 +54,8 @@ with open(PING) as ping:
         if int(success):
             total_success[day] += 1
             time_success[day][slot_i] += 1
-
+            if dt > lastSuccess:
+                lastSuccess = dt
 week = []
 uptimes = []
 
@@ -70,7 +73,7 @@ window.addEventListener("load", function() {{
 {slots},
 {uptimes}
 );
-  setCurrentStatus({lastUpdate}, {lastUpdateStatus});
+  setCurrentStatus({lastSuccess}, {lastUpdateStatus}, {lastUpdate});
 }});
 /*
 """.format(
@@ -78,6 +81,7 @@ window.addEventListener("load", function() {{
   slots = json.dumps([str(h) + (":30" if m == 45 else ":00") for h, m in SLOTS_PER_DAY], indent=2),
   uptimes = json.dumps(uptimes, indent=2),
   lastUpdate = int((datetime.datetime.now() - datetime.datetime(*lastUpdate)).total_seconds()),
+  lastSuccess = int((datetime.datetime.now() - datetime.datetime(*lastSuccess)).total_seconds()),
   lastUpdateStatus = lastUpdateStatus
 ))
 
