@@ -13,6 +13,7 @@ HERE = os.path.dirname(sys.argv[0])
 LOGS = os.path.join(HERE, "..", "bin", "logs")
 PING = os.path.join(LOGS, "ping.log.csv")
 DOWNLOAD = os.path.join(LOGS, "download.log.csv")
+NETWORK = os.path.join(LOGS, "network.log.csv")
 DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 SLOTS_PER_DAY = [(hour, minute) for hour in range(25) for minute in (15, 45)]
 
@@ -63,32 +64,43 @@ with open(PING) as ping:
 
 I_BPS = 3
 
-download_rates = defaultdict(lambda: [[] for i in range(len(SLOTS_PER_DAY))])
 
-with open(DOWNLOAD) as download:
-    for line in download:
-        data = line.split(";")
-        day = data[DAY]
-        bps = int(data[I_BPS])
-        time = tuple(map(int, data[TIME].split(":")))
-        for slot_i, slot in enumerate(SLOTS_PER_DAY):
-            if slot > time:
-                break
+def getMedianSlots(path, index):
+    """Get the median slot value from the value at index."""
+    download_rates = defaultdict(lambda: [[] for i in range(len(SLOTS_PER_DAY))])
+
+    with open(path) as download:
+        for line in download:
+            data = line.split(";")
+            day = data[DAY]
+            bps = int(data[I_BPS])
+            time = tuple(map(int, data[TIME].split(":")))
+            for slot_i, slot in enumerate(SLOTS_PER_DAY):
+                if slot > time:
+                    break
 #        print(data[TIME], slot_i, slot)
-        download_rates[day][slot_i].append(bps)
+            download_rates[day][slot_i].append(bps)
 
-download_median = []
+    download_median = []
 
-for day in DAYS:
-    rates = []
-    download_median.append(rates)
-    for rate in download_rates[day]:
-        if not rate:
-            rates.append(0)
-            continue
-        rate.sort()
-        median = rate[(len(rate) + 1) // 2]
-        rates.append(median)
+    for day in DAYS:
+        rates = []
+        download_median.append(rates)
+        for rate in download_rates[day]:
+            if not rate:
+                rates.append(0)
+                continue
+            rate.sort()
+            median = rate[(len(rate) + 1) // 2]
+            rates.append(median)
+
+    return download_median
+
+download_median = getMedianSlots(DOWNLOAD, I_BPS)
+
+###### People in the network
+
+people = getMedianSlots(NETWORK, 3)
 
 ###### WEEK STATISTICS
 
@@ -118,6 +130,10 @@ window.addEventListener("load", function() {{
 {slots},
 {downloadBps}
   );
+  setDevices(
+{slots},
+{people}
+  );
 /*
 """.format(
   week = json.dumps(week, indent=2),
@@ -126,7 +142,8 @@ window.addEventListener("load", function() {{
   lastUpdate = int((datetime.datetime.now() - datetime.datetime(*lastUpdate)).total_seconds()),
   lastSuccess = int((datetime.datetime.now() - datetime.datetime(*lastSuccess)).total_seconds()),
   lastUpdateStatus = lastUpdateStatus,
-  downloadBps = json.dumps(download_median, indent=2)
+  downloadBps = json.dumps(download_median, indent=2),
+  people = json.dumps(people, indent=2),
 ))
 
 print("SLOTS_PER_DAY: ", SLOTS_PER_DAY)

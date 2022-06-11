@@ -1,4 +1,14 @@
 
+/*
+devices:
+1x router
+2x av600
+1x netgear
+
+*/
+var NO_DEVICES_DEFAULT = 0;
+
+
 var names = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 var weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
@@ -62,6 +72,7 @@ function showDays(xValues, values) {
 }
 
 
+
 function setDownloadSpeed(xValues, values) {
   var datasets = [];
   for (var i = 0; i < values.length; i++) {
@@ -87,6 +98,32 @@ function setDownloadSpeed(xValues, values) {
   }));
 }
 
+
+
+function setDevices(xValues, values) {
+  var datasets = [];
+  for (var i = 0; i < values.length; i++) {
+        datasets.push({
+        data: values[i].map(function(v){return Math.max(0, v - NO_DEVICES_DEFAULT);}),
+        borderColor: colors[names[i]],
+        fill: false
+      });
+  }
+  charts.push(new Chart("devices", {
+    type: "line",
+    data: {
+      labels: xValues,
+      datasets: datasets,
+    },
+    options: {
+      legend: {display: false},
+      title: {
+        display: true,
+        text: "Devices in the Network"
+      }
+    }
+  }));
+}
 
 
 
