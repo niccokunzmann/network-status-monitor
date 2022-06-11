@@ -35,4 +35,6 @@ echo "$ipn" | while read ; do
   done
 done
 
-logMacCount "`echo \"$ipn\" | grep -iFe 'REACHABLE' | wc -l`"
+echo "$ipn"
+
+logMacCount "`echo \"$ipn\" | grep -iEe 'DELAY|REACHABLE|STALE' | wc -l`"
