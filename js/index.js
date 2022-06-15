@@ -33,14 +33,14 @@ function toggleWeekday(day) {
   }
   document.body.classList.toggle("inactive" + day);
   var active = !document.body.classList.contains("inactive" + day);
-  console.log("toggle " + day + " at index " + index + ": " + (active ? "active" : "inactive"));
+//  console.log("toggle " + day + " at index " + index + ": " + (active ? "active" : "inactive"));
   for (var i = 0; i < charts.length; i++) {
     // toggle the visibility
     // see https://stackoverflow.com/a/49252102
     var chart = charts[i];
     // see https://www.chartjs.org/docs/2.7.3/configuration/legend.html
     var meta = chart.getDatasetMeta(index);
-    console.log(meta);
+//    console.log(meta);
     meta.hidden = !active;
     chart.update();
   }
@@ -197,5 +197,5 @@ function setCurrentStatus(lastSuccess, statusId, lastUpdate) {
   var status = STATUS[statusId];
   element.classList.add(status.cls);
   element.innerText = status.message + " " + secondsToString(lastSuccess) + " ago." + (statusId == 0 ? " Last updated " + secondsToString(lastUpdate) + " ago." : "");
-  console.log(element.classList);
+//  console.log(element.classList);
 }
