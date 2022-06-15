@@ -21,11 +21,11 @@ SLOTS_PER_DAY.pop(-1)
 
 ###### PING
 
-total_count = defaultdict(lambda: 1)
-total_success = defaultdict(lambda: 1)
+total_count = defaultdict(lambda: 0)
+total_success = defaultdict(lambda: 0)
 
-time_count = defaultdict(lambda: [1] * len(SLOTS_PER_DAY))
-time_success = defaultdict(lambda: [1] * len(SLOTS_PER_DAY))
+time_count = defaultdict(lambda: [0] * len(SLOTS_PER_DAY))
+time_success = defaultdict(lambda: [0] * len(SLOTS_PER_DAY))
 
 DAY = 0
 DATE = 1
@@ -88,7 +88,7 @@ def getMedianSlots(path, index):
         download_median.append(rates)
         for rate in download_rates[day]:
             if not rate:
-                rates.append(0)
+                rates.append(None)
                 continue
             rate.sort()
             median = rate[(len(rate) + 1) // 2]
@@ -108,8 +108,11 @@ week = []
 uptimes = []
 
 for day in DAYS:
-    week.append(int(0.5 + total_success[day] * 100 / total_count[day]))
-    uptimes.append([int(0.5 + time_success[day][i] * 100 / time_count[day][i]) for i in range(len(SLOTS_PER_DAY))])
+    week.append(None if total_count[day] == 0 else int(0.5 + total_success[day] * 100 / total_count[day]))
+    uptimes.append([
+        (None if time_count[day][i] == 0 else int(0.5 + time_success[day][i] * 100 / time_count[day][i]))
+        for i in range(len(SLOTS_PER_DAY))
+    ])
 
 
 ##### OUTPUT AS JAVASCRIPT

@@ -77,7 +77,7 @@ function setDownloadSpeed(xValues, values) {
   var datasets = [];
   for (var i = 0; i < values.length; i++) {
         datasets.push({
-        data: values[i].map(function(v){return v / 1000;}),
+        data: values[i].map(function(v){return v == null ? v : v / 1000;}),
         borderColor: colors[names[i]],
         fill: false
       });
@@ -104,7 +104,7 @@ function setDevices(xValues, values) {
   var datasets = [];
   for (var i = 0; i < values.length; i++) {
         datasets.push({
-        data: values[i].map(function(v){return Math.max(0, v - NO_DEVICES_DEFAULT);}),
+        data: values[i], //.map(function(v){return Math.max(0, v - NO_DEVICES_DEFAULT);}),
         borderColor: colors[names[i]],
         fill: false
       });
@@ -135,7 +135,8 @@ function showWeekOverview(yValues) {
   var barColors = [colors.Mon, colors.Tue, colors.Wed, colors.Thu, colors.Fri, colors.Sat, colors.Sun];
   for (var i = 0; i < weekdays.length; i++) {
     var element = document.getElementById("percent" + names[i]);
-    element.innerHTML = "<br/>" + yValues[i] + "%";
+    var value = yValues[i];
+    element.innerHTML = "<br/>" + (value == null ? "??" : value) + "%";
   }
 
 /*  charts.push(new Chart("weekOverview", {
