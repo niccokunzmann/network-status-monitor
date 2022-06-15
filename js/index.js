@@ -92,7 +92,7 @@ function setDownloadSpeed(xValues, values) {
       legend: {display: false},
       title: {
         display: true,
-        text: "Download Speed in kb/s"
+        text: "Median Download Speed in kb/s"
       }
     }
   }));
@@ -119,7 +119,7 @@ function setDevices(xValues, values) {
       legend: {display: false},
       title: {
         display: true,
-        text: "Devices in the Network"
+        text: "Maximum Devices in the Network"
       }
     }
   }));

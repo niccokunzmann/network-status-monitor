@@ -65,7 +65,16 @@ with open(PING) as ping:
 I_BPS = 3
 
 
-def getMedianSlots(path, index):
+def median(l):
+    """Return the Median of the list with at least one element."""
+    l = l[:]
+    l.sort()
+    median = l[(len(l) + 1) // 2]
+    return median
+
+
+
+def getSlots(path, index, crunch):
     """Get the median slot value from the value at index."""
     download_rates = defaultdict(lambda: [[] for i in range(len(SLOTS_PER_DAY))])
 
@@ -90,17 +99,15 @@ def getMedianSlots(path, index):
             if not rate:
                 rates.append(None)
                 continue
-            rate.sort()
-            median = rate[(len(rate) + 1) // 2]
-            rates.append(median)
+            rates.append(crunch(rate))
 
     return download_median
 
-download_median = getMedianSlots(DOWNLOAD, I_BPS)
+download_median = getSlots(DOWNLOAD, I_BPS, median)
 
 ###### People in the network
 
-people = getMedianSlots(NETWORK, 3)
+people = getSlots(NETWORK, 3, max)
 
 ###### WEEK STATISTICS
 
