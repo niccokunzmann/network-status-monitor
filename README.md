@@ -1,6 +1,8 @@
 Network Status Monitor
 ======================
 
+![Screenshot showing the website with statistics on it.](screenshot-internet-statistics.png)
+
 This is a simple background monitor which creates statistics
 about how the network is behaving.
 It can run as a background job on a raspberry pi or
@@ -32,6 +34,23 @@ Then, I added this line:
 ```
 @reboot /home/pi/network-status-monitor/bin/background
 ```
+
+Packages
+--------
+
+Commands used:
+- `wget`
+- `curl`
+- `python3` for the server, not required to just record statistics
+- `ip`
+- `traceroute`
+- `bash`
+- `ping`
+- `git` for updating/cloning
+- `iwlist` as `/sbin/iwlist` for listing WIFI networks
+
+Also used bu usually there:
+`dirname`, `cd`, `mkdir`, `seq`
 
 Server
 ------
