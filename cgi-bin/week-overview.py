@@ -14,16 +14,22 @@ LOGS = os.path.join(HERE, "..", "bin", "logs")
 PING = os.path.join(LOGS, "ping.log.csv")
 DOWNLOAD = os.path.join(LOGS, "download.log.csv")
 NETWORK = os.path.join(LOGS, "network.log.csv")
-DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+TODAY = "today"
+DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", TODAY]
 SLOTS_PER_DAY = [(hour, minute) for hour in range(25) for minute in (15, 45)]
 
 SLOTS_PER_DAY.pop(-1)
+TODAY_DT = datetime.date.today()
+today = (TODAY_DT.year, TODAY_DT.month, TODAY_DT.day)
 
 ###### PING
 
+
+# day: count
 total_count = defaultdict(lambda: 0)
 total_success = defaultdict(lambda: 0)
 
+# day: slot: count
 time_count = defaultdict(lambda: [0] * len(SLOTS_PER_DAY))
 time_success = defaultdict(lambda: [0] * len(SLOTS_PER_DAY))
 
@@ -54,9 +60,15 @@ with open(PING) as ping:
 #        print(data[TIME], slot_i, slot)
         total_count[day] += 1
         time_count[day][slot_i] += 1
+        if date == today:
+            total_count[TODAY] += 1
+            time_count[TODAY][slot_i] += 1
         if int(success):
             total_success[day] += 1
             time_success[day][slot_i] += 1
+            if date == today:
+                total_success[TODAY] += 1
+                time_success[TODAY][slot_i] += 1
             if dt > lastSuccess:
                 lastSuccess = dt
 
@@ -75,7 +87,9 @@ def median(l):
 
 
 def getSlots(path, index, crunch):
-    """Get the median slot value from the value at index."""
+    """Get the slot value from the value at index.
+    crunch the data list with median or max or average ...
+    """
     download_rates = defaultdict(lambda: [[] for i in range(len(SLOTS_PER_DAY))])
 
     with open(path) as download:
@@ -121,6 +135,11 @@ for day in DAYS:
         for i in range(len(SLOTS_PER_DAY))
     ])
 
+current = week[7:]
+current_uptimes = uptimes[7:]
+
+today_total = current[0]
+today_uptime = current_uptimes[0]
 
 ##### OUTPUT AS JAVASCRIPT
 
@@ -144,8 +163,15 @@ window.addEventListener("load", function() {{
 {slots},
 {people}
   );
+  setTodayUptime(
+{slots},
+{today_uptime},
+{today_total}
+  );
 /*
 """.format(
+  today_total = json.dumps(today_total),
+  today_uptime = json.dumps(today_uptime),
   week = json.dumps(week, indent=2),
   slots = json.dumps([str(h) + (":30" if m == 45 else ":00") for h, m in SLOTS_PER_DAY], indent=2),
   uptimes = json.dumps(uptimes, indent=2),

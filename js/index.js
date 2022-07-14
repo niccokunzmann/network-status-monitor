@@ -72,6 +72,31 @@ function showDays(xValues, values) {
 }
 
 
+function setTodayUptime(xValues, values, total) {
+  document.getElementById("today_total").innerText = (total == null ? "" : total + "%");
+  (new Chart("today", {
+    type: "line",
+    data: {
+      labels: xValues,
+      datasets: [
+        {
+          data: values,
+          borderColor: "black",
+          fill: true
+        }
+      ]
+    },
+    options: {
+      legend: {display: false},
+      title: {
+        display: true,
+        text: "Internet Availability by Time in %"
+      }
+    }
+  }));
+}
+
+
 
 function setDownloadSpeed(xValues, values) {
   var datasets = [];

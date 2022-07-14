@@ -32,7 +32,13 @@ window.addEventListener("error", function(e) {
       availability in the Barn in Tipi Valley.
     </p>
     <div id="currentStatus">Current status is loading...</div>
+    <h2>Internet Today <span id="today_total"></span></h2>
+    <canvas id="today"></canvas>
     <h2>Internet Availability per Week Day</h2>
+    <p>
+      Click the days do hide or remove the lines
+      in the diagrams below.
+    </p>
     <div class="overview">
       <a class="weekday Mon" href="javascript:toggleWeekday('Mon');">
         Monday<span id="percentMon"></span>
